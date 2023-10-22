@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Dinâmica</title>
+</head>
+
+<body>
+
+    <h1>Servidor Apache        </h1>
+    <h2>Redes de Computadores- Projeto Web</h2>
+
+    <p id="ip"></p>
+    <p id="data"></p>
+    <p id="hora"></p>
+    <p id="localizacao"></p>
+
+    <script>
+        
+        function getIP() {
+            fetch('https://api64.ipify.org?format=json')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('ip').innerText = 'IP: ' + data.ip;
+                })
+                .catch(error => console.error('Erro ao obter IP:', error));
+        }
+
+        
+        function getDataHora() {
+            const now = new Date();
+            document.getElementById('data').innerText = 'Data: ' + now.toISOString().split('T')[0];
+            document.getElementById('hora').innerText = 'Hora: ' + now.toLocaleTimeString();
+        }
+
+        
+
+        
+        getIP();
+        getDataHora();
+       
+
+        
+        setInterval(function () {
+            getIP();
+            getDataHora();
+        }, 5000);
+    </script>
+
+</body>
+
+</html>
